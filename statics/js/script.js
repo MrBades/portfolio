@@ -39,34 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Intersection Observer for Scroll Animations ---
-    const animatedSections = document.querySelectorAll('.animated-section');
-
-    const observerOptions = {
-        root: null, // observes intersections relative to the viewport
-        rootMargin: '0px',
-        threshold: 0.1 // 10% of the section is visible
-    };
-
-    const sectionObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                // Optional: unobserve after animation to save resources
-                // observer.unobserve(entry.target);
-            }
-            // Optional: remove 'visible' class if section scrolls out of view
-            // else {
-            //     entry.target.classList.remove('visible');
-            // }
-        });
-    }, observerOptions);
-
-    animatedSections.forEach(section => {
-        sectionObserver.observe(section);
-    });
-
-
     // --- Update Footer Year ---
     const currentYearSpan = document.getElementById('currentYear');
     if (currentYearSpan) {
