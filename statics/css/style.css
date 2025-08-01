@@ -20,10 +20,11 @@ body {
     background-color: var(--primary-dark);
     color: var(--light-text);
     line-height: 1.6;
-    overflow-x: hidden;
+    overflow-x: hidden; /* Prevents horizontal scroll */
 }
 
-.container { width: 90%; max-width: 1100px; margin: 0 auto; padding: 20px 0; }
+/* Strategic Change: Ensure container has consistent horizontal padding for all sections */
+.container { width: 90%; max-width: 1100px; margin: 0 auto; padding: 20px 20px; } 
 h1, h2, h3 { font-family: var(--font-primary); color: var(--light-heading); margin-bottom: 20px; font-weight: 600; }
 h1 { font-size: 2.8rem; }
 h2 { font-size: 2.2rem; margin-top: 40px; }
@@ -33,6 +34,9 @@ a { color: var(--accent-color); text-decoration: none; transition: color var(--t
 a:hover { color: #fff; }
 img { max-width: 100%; height: auto; display: block; }
 section { padding: 80px 0; }
+
+/* Strategic Change: Add padding to main to prevent content from hiding under fixed header */
+main { padding-top: 80px; } /* Adjust this value if your header height changes */
 
 
 /* --- Professional Fade-In Animation --- */
@@ -47,43 +51,88 @@ section { padding: 80px 0; }
     }
 }
 .fade-in-up {
-    /* Set the initial state before animation */
     opacity: 0; 
-    /* Apply the animation */
     animation: fadeInUp 0.8s ease-out forwards;
 }
 
+
+/* --- Header & Navigation --- */
+
+/* In statics/css/style.css */
 
 /* --- Header & Navigation --- */
 header {
     background-color: rgba(10, 25, 47, 0.85);
     backdrop-filter: blur(10px);
     padding: 1rem 0;
-    position: fixed;
+    position: fixed; /* THIS makes it sticky */
     width: 100%;
-    top: 0;
+    top: 0;          /* THIS ensures it sticks to the very top */
     left: 0;
-    z-index: 1000;
+    z-index: 1000;   /* THIS ensures it stays on top of other content */
     box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    
+    /* --- NEW ADDITIONS FOR MOBILE STICKY ISSUES --- */
+    -webkit-backface-visibility: hidden; /* Prevents flickering on some iOS versions */
+    backface-visibility: hidden;
+    transform: translateZ(0); /* Forces hardware acceleration, creates a new stacking context */
+    -webkit-transform: translateZ(0); /* For older WebKit browsers */
+    will-change: transform; /* Hints to the browser that this element's transform property will change */
 }
 
-nav { display: flex; justify-content: space-between; align-items: center; width: 90%; max-width: 1100px; margin: 0 auto; }
+
+/* Strategic Change: Ensure nav items are centered if they fill the space, or logo/toggle are well-spaced */
+nav { display: flex; justify-content: space-between; align-items: center; width: 90%; max-width: 1100px; margin: 0 auto; padding: 0 20px; } 
 nav .logo a { font-family: var(--font-primary); font-size: 1.8rem; font-weight: 700; color: var(--accent-color); }
 nav ul { list-style: none; display: flex; }
 nav ul li { margin-left: 25px; }
 nav ul li a { font-family: var(--font-secondary); color: var(--light-text); padding: 5px 10px; position: relative; }
 nav ul li a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -2px; left: 50%; transform: translateX(-50%); background-color: var(--accent-color); transition: width var(--transition-speed); }
 nav ul li a:hover::after { width: 100%; }
-.menu-toggle { display: none; background: none; border: none; color: var(--accent-color); font-size: 1.5rem; cursor: pointer; }
+/* Strategic Change: Menu toggle hidden by default, visible on mobile */
+.menu-toggle { display: none; background: none; border: none; color: var(--accent-color); font-size: 1.5rem; cursor: pointer; padding: 10px; /* Give it more hit area */ }
 
 
-/* --- Introduction Section --- */
-#introduction { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; min-height: 100vh; text-align: left; padding-top: 100px; }
-#introduction h1 { font-size: clamp(1.5rem, 6vw, 2.5rem); margin-bottom: 10px; }
-#introduction .tagline { font-family: var(--font-primary); font-size: clamp(1.2rem, 3vw, 1.8rem); color: var(--light-heading); margin-bottom: 20px; }
-#introduction .summary { font-size: 1.1rem; max-width: 600px; color: var(--slate-text); margin-bottom: 30px; }
+/* --- Introduction Section - Strategic Change: Align content center on wider screens --- */
+#introduction { 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; /* Center horizontally */
+    min-height: 100vh; 
+    text-align: center; /* Strategic Change: Center text content */
+    padding-top: 100px; /* Adjusted to account for fixed header, but main padding-top is primary now */
+}
+#introduction .container {
+    padding: 20px; /* Adjust padding if needed to ensure content isn't too wide */
+}
+#introduction h1 { font-size: clamp(1.8rem, 6vw, 3.2rem); margin-bottom: 15px; } 
+#introduction .tagline { font-family: var(--font-primary); font-size: clamp(1.2rem, 3vw, 1.8rem); color: var(--light-heading); margin-bottom: 25px; }
+#introduction .summary { 
+    font-size: 1.1rem; 
+    max-width: 700px; 
+    color: var(--slate-text); 
+    margin-bottom: 30px; 
+    margin-left: auto; /* Strategic Change: Center summary paragraph */
+    margin-right: auto; /* Strategic Change: Center summary paragraph */
+}
+.intro-cta-buttons { 
+    display: flex; 
+    gap: 20px; 
+    flex-wrap: wrap; 
+    justify-content: center; /* Strategic Change: Center CTA buttons */
+} 
 .cta-button { display: inline-block; background-color: transparent; color: var(--accent-color); border: 1px solid var(--accent-color); padding: 12px 25px; border-radius: 4px; font-family: var(--font-secondary); font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; transition: background-color var(--transition-speed), color var(--transition-speed); }
 .cta-button:hover { background-color: var(--accent-color); color: var(--primary-dark); }
+.secondary-cta { 
+    background-color: var(--accent-color);
+    color: var(--primary-dark);
+    border: 1px solid var(--accent-color);
+}
+.secondary-cta:hover {
+    background-color: transparent;
+    color: var(--accent-color);
+}
 
 
 /* --- Projects Section --- */
@@ -101,42 +150,14 @@ nav ul li a:hover::after { width: 100%; }
 .project-links a:hover { text-decoration: underline; }
 
 
-/* --- Testimonials Section Styling --- */
-#testimonials h2 { text-align: center; }
-.testimonial-card {
-    background-color: var(--secondary-dark);
-    padding: 30px 40px;
-    border-radius: 8px;
-    border-left: 5px solid var(--accent-color);
-    max-width: 750px;
-    margin: 30px auto;
-    box-shadow: var(--shadow);
-}
-.testimonial-card .quote {
-    font-size: 1.1rem;
-    font-style: italic;
-    color: var(--light-text);
-    margin-bottom: 20px;
-    line-height: 1.7;
-}
-.testimonial-card .client-name {
-    font-size: 1rem;
-    text-align: right;
-    color: var(--light-heading);
-    margin-bottom: 0;
-}
-.testimonial-card .client-name strong {
-    font-weight: 600;
-}
-
-
 /* --- Skills Section --- */
 #skills h2 { text-align: center; }
 .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 25px; margin-top: 30px; justify-items: center; }
 .skill-item { background-color: var(--secondary-dark); padding: 20px; border-radius: 8px; text-align: center; position: relative; transition: transform var(--transition-speed), background-color var(--transition-speed); width: 100px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .skill-item:hover { transform: scale(1.1); background-color: var(--accent-color); }
-.skill-item i { font-size: 3rem; color: var(--accent-color); margin-bottom: 10px; transition: color var(--transition-speed); }
-.skill-item:hover i { color: var(--primary-dark); }
+.skill-item i { font-size: 3rem; color: var(--accent-color); margin-bottom: 5px; transition: color var(--transition-speed); } 
+.skill-item span { font-size: 0.85rem; color: var(--light-text); } 
+.skill-item:hover i, .skill-item:hover span { color: var(--primary-dark); }
 .skill-item[data-tooltip]::before { content: attr(data-tooltip); position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%); background-color: var(--primary-dark); color: var(--light-heading); padding: 8px 12px; border-radius: 4px; font-size: 0.85rem; white-space: nowrap; opacity: 0; visibility: hidden; transition: opacity var(--transition-speed), visibility var(--transition-speed); z-index: 10; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
 .skill-item[data-tooltip]:hover::before { opacity: 1; visibility: visible; }
 
@@ -147,6 +168,28 @@ nav ul li a:hover::after { width: 100%; }
 #headshot { border-radius: 50%; border: 5px solid var(--accent-color); box-shadow: 0 0 25px rgba(100, 255, 218, 0.3); }
 .about-content { flex-basis: 65%; }
 .about-content p { color: var(--slate-text); font-size: 1.05rem; }
+
+
+/* --- New Call to Action Section --- */
+#call-to-action {
+    background-color: var(--secondary-dark); 
+    text-align: center;
+    padding: 60px 0;
+    margin-top: 50px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+#call-to-action h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    margin-bottom: 20px;
+    color: var(--light-heading);
+}
+#call-to-action p {
+    max-width: 800px;
+    margin: 0 auto 30px auto;
+    font-size: 1.1rem;
+    color: var(--slate-text);
+}
 
 
 /* --- Contact Section --- */
@@ -163,27 +206,128 @@ nav ul li a:hover::after { width: 100%; }
 footer { text-align: center; padding: 30px 0; background-color: var(--secondary-dark); color: var(--slate-text); font-size: 0.9rem; margin-top: 50px; }
 
 
+/* --- Back to Top Button --- */
+#back-to-top {
+    display: none; 
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--accent-color);
+    color: var(--primary-dark);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: background-color var(--transition-speed), transform var(--transition-speed), opacity var(--transition-speed);
+    z-index: 999;
+    padding: 0; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#back-to-top:hover {
+    background-color: #79ffe0; 
+    transform: translateY(-5px);
+}
+#back-to-top.show {
+    display: flex; 
+    opacity: 1;
+}
+
+
 /* --- Responsive Design --- */
 @media (max-width: 992px) { /* Tablets */
     .project-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
     .about-flex { flex-direction: column; text-align: center; }
     .about-image { margin-bottom: 30px; max-width: 250px; }
+    /* Strategic Change: Ensure content within container is still readable */
+    .container { padding: 20px 15px; } 
+    nav { padding: 0 15px; }
+	
 }
 
 @media (max-width: 768px) { /* Mobile Nav and general adjustments */
-    nav ul { display: none; flex-direction: column; width: 100%; background-color: var(--secondary-dark); position: absolute; top: 100%; left: 0; padding: 10px 0; box-shadow: 0 5px 10px rgba(0,0,0,0.2); }
-    nav ul.active { display: flex; }
-    nav ul li { margin: 10px 0; text-align: center; }
-    .menu-toggle { display: block; }
+    nav ul { 
+        display: none; 
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--secondary-dark);
+        position: absolute;
+        top: 100%; 
+        left: 0;
+        padding: 10px 0;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        animation: slideDown .3s ease-out forwards; 
+        left: 50%; /* Center the menu itself */
+        transform: translateX(-50%); /* Center the menu itself */
+        max-width: 300px; /* Optional: limit width on smaller screens */
+    }
+    nav ul.active { display: flex; } 
+    
+    /* Strategic Change: Force menu-toggle to be displayed and visible */
+    .menu-toggle { 
+        display: flex !important; 
+        align-items: center; 
+        justify-content: center; 
+        gap: 8px; 
+        background: none; 
+        border: 2px solid var(--accent-color) !important; 
+        color: var(--accent-color) !important; 
+        font-size: 1.2rem !important; 
+        cursor: pointer; 
+        padding: 10px 15px !important; 
+        position: relative; 
+        z-index: 1001; 
+        min-width: 80px; 
+        height: 45px; 
+        border-radius: 4px; 
+        transition: all var(--transition-speed);
+    } 
+    .menu-toggle:hover {
+        background-color: var(--accent-color) !important;
+        color: var(--primary-dark) !important;
+    }
+    /* Specific styling for the Font Awesome icon inside the button */
+    .menu-toggle i.fas { /* Targeting specific Font Awesome class */
+        font-family: "Font Awesome 6 Free" !important; /* Force Font Awesome font */
+        font-weight: 900 !important; /* Font Awesome solid icons use font-weight 900 */
+        font-size: 1.5rem !important; 
+        color: inherit; 
+    }
+
+    nav ul li { /* Ensure menu items fill width and center text */
+        margin: 5px 0; 
+        text-align: center; 
+        width: 100%; /* Make list items take full width of their parent (nav ul) */
+    }
+    nav ul li a { /* Ensure the links inside list items are centered */
+        display: block; /* Make link a block element to fill the li's width */
+        width: 100%;
+        padding: 3px 0; /* Add some vertical padding */
+        text-align: center;
+    }
+
+    #introduction {
+        align-items: center; 
+        text-align: center; 
+    }
     #introduction h1 { font-size: 2.2rem; }
     #introduction .tagline { font-size: 1.1rem; }
-    #introduction .summary { font-size: 1rem; }
+    #introduction .summary { font-size: 1rem; max-width: 90%; }
     h2 { font-size: 1.8rem; }
     .project-grid { grid-template-columns: 1fr; }
     .skills-grid { grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 15px; }
     .skill-item { width: 80px; height: 80px; }
     .skill-item i { font-size: 2rem; }
     .social-links a { font-size: 1.8rem; margin: 0 10px; }
+
+    @keyframes slideDown { 
+        from { transform: translateY(-20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
 }
 
 @media (max-width: 480px) { /* Smaller mobile devices */
@@ -192,4 +336,13 @@ footer { text-align: center; padding: 30px 0; background-color: var(--secondary-
     #introduction .tagline { font-size: 1rem; }
     section { padding: 60px 0; }
     .cta-button { padding: 10px 20px; font-size: 0.9rem; }
+    .intro-cta-buttons { flex-direction: column; gap: 10px;} 
+    #back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+    }
+    /* Ensure all text is contained and looks good on small screens */
+    p { font-size: 0.9rem; }
 }
