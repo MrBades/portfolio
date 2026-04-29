@@ -66,6 +66,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Update Footer Year ---
     const currentYearSpan = document.getElementById('currentYear');
     if (currentYearSpan) {
-        currentYearSpan.textContent = new Date().getFullYear();
+        currentYearSpan.textContent = "2026";
     }
 });
