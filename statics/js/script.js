@@ -89,6 +89,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     mobileToggle.addEventListener('click', toggleMobileMenu);
 
+    // --- Parallax Effect for Africa Map ---
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const map = document.getElementById('africa-map-container');
+        if (map && scrolled < 1000) {
+            map.style.transform = `translate(-50%, calc(-50% + ${scrolled * 0.15}px))`;
+        }
+    });
+
+    // --- Map Nodes Generator ---
+    function generateMapNodes() {
+        const container = document.querySelector('.map-nodes');
+        if (!container) return;
+
+        // Random positions over the Africa SVG area
+        for (let i = 0; i < 15; i++) {
+            const node = document.createElement('div');
+            node.className = 'map-node';
+            node.style.top = `${Math.random() * 60 + 20}%`;
+            node.style.left = `${Math.random() * 40 + 30}%`;
+            node.style.animationDelay = `${Math.random() * 2}s`;
+            container.appendChild(node);
+        }
+    }
+    generateMapNodes();
+
     // --- AI Lab: Neural Network Background Animation ---
     let canvas, ctx, particles = [];
 
