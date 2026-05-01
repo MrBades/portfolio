@@ -45,18 +45,50 @@
     <main id="spa-container">
         <!-- Home Section -->
         <section id="home" class="spa-section active">
+            <div id="africa-map-container" class="parallax-element">
+                <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" class="africa-svg">
+                    <path d="M480,80 C350,100 250,180 200,300 C180,380 150,450 180,550 C210,650 300,750 380,850 C420,900 480,950 500,980 C520,950 580,900 620,850 C700,750 790,650 820,550 C850,450 820,380 800,300 C750,180 650,100 520,80 Z" class="map-path" />
+                    <line x1="400" y1="300" x2="600" y2="400" class="map-link" />
+                    <line x1="600" y1="400" x2="450" y2="600" class="map-link" />
+                    <line x1="450" y1="600" x2="550" y2="800" class="map-link" />
+                </svg>
+                <div class="map-nodes"></div>
+            </div>
             <div class="hero-content">
-                <h1 class="glitch-text">Engineering the Digital Backbone of Africa</h1>
-                <p class="sub-headline">Intelligence-driven infrastructure and software for a connected continent.</p>
+                <h1 class="glitch-text">Building Africa's Intelligent Digital Infrastructure</h1>
+                <p class="sub-headline">Enabling seamless connectivity, real-time AI intelligence, and scalable software solutions across borders.</p>
                 <div class="cta-group">
-                    <button class="btn btn-primary" data-section="ecosystem">Explore Ecosystem</button>
+                    <button class="btn btn-primary glow-btn" data-section="ecosystem">Explore Ecosystem</button>
                     <button class="btn btn-secondary" data-section="contact">Partner With Us</button>
+                </div>
+
+                <div class="traction-bar glass-card">
+                    <div class="stat-item">
+                        <span class="stat-value">99.9%</span>
+                        <span class="stat-label">Service Availability</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-value">Global</span>
+                        <span class="stat-label">Compliance Standards</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-value">AI-Driven</span>
+                        <span class="stat-label">Optimization</span>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Ecosystem Section -->
         <section id="ecosystem" class="spa-section">
+            <div class="problem-statement">
+                <div class="container">
+                    <h2 class="problem-text">Africa’s digital gap isn’t just about cables—it’s about intelligence and reliability.</h2>
+                </div>
+            </div>
+
             <div class="container">
                 <h2 class="section-title">The 4-Pillar Ecosystem</h2>
                 <div class="pillar-grid">
@@ -64,21 +96,25 @@
                         <i class="fas fa-wallet icon-accent"></i>
                         <h3>FinTech (Yeedem Books)</h3>
                         <p>Highlighting 'Data-Lite' performance, offline-first capabilities, and ease of use for Nigerian micro-businesses. Our flagship ledger ensures secure accounting in any environment.</p>
+                        <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
                     </div>
                     <div class="pillar-card glass-card">
                         <i class="fas fa-satellite-dish icon-accent"></i>
                         <h3>Connectivity & Monitoring</h3>
                         <p>Enterprise Starlink Fleet Management and infrastructure monitoring. We specialize in high-performance network testing and maintaining 99.99% uptime for mission-critical business connectivity.</p>
+                        <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
                     </div>
                     <div class="pillar-card glass-card">
                         <i class="fas fa-bolt icon-accent"></i>
                         <h3>Smart Energy</h3>
                         <p>Specialized DIY Solar solutions and LiFePO4 battery integration. Intelligence-driven power management ensuring 24/7 business reliability in energy-challenged markets.</p>
+                        <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
                     </div>
                     <div class="pillar-card glass-card">
                         <i class="fas fa-brain icon-accent"></i>
                         <h3>AI & Machine Learning</h3>
                         <p>Developing predictive data models and intelligent automation specifically tailored to solve unique challenges in the African market.</p>
+                        <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -108,7 +144,7 @@
         <!-- Team Section -->
         <section id="team" class="spa-section">
             <div class="container">
-                <h2 class="section-title">Leadership</h2>
+                <h2 class="section-title">Executive Leadership</h2>
                 <div class="team-grid">
                     <article class="team-card glass-card">
                         <div class="member-photo">
