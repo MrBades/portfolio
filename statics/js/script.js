@@ -89,6 +89,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     mobileToggle.addEventListener('click', toggleMobileMenu);
 
+    // --- Intersection Observer for Scroll Reveals ---
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
+    };
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.glass-card, .section-title, .hero-content').forEach(el => {
+        el.classList.add('reveal-on-scroll');
+        revealObserver.observe(el);
+    });
+
     // --- Parallax Effect for Africa Map ---
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
@@ -114,6 +134,50 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     generateMapNodes();
+
+    // --- Member Modal Logic ---
+    const modal = document.getElementById('member-modal');
+    const modalBody = document.getElementById('modal-body');
+    const closeModal = document.querySelector('.close-modal');
+    const clickableMembers = document.querySelectorAll('.clickable-member');
+
+    const memberDetails = {
+        suleman: {
+            name: "Suleman Bades",
+            role: "CEO & Founder | Software Architect",
+            bio: "BSc in Information Technology with over 8 years of experience in enterprise infrastructure. Expert in React, Next.js, Django, and global compliance standards for fintech.",
+            expertise: ["Software Architecture", "FinTech Compliance", "Cloud Infrastructure", "Strategic Planning"]
+        },
+        azeez: {
+            name: "Ajigboteso Azeez Sesan",
+            role: "Technical Lead | IT Support Professional",
+            bio: "HND in Computer Engineering. Specialist in high-availability systems, network architecture (LAN/WAN), and hardware reliability in challenging environments.",
+            expertise: ["Network Infrastructure", "System Reliability", "Hardware Maintenance", "Technical Support"]
+        }
+    };
+
+    clickableMembers.forEach(member => {
+        member.addEventListener('click', () => {
+            const memberId = member.getAttribute('data-member');
+            const details = memberDetails[memberId];
+
+            modalBody.innerHTML = `
+                <h2 style="color: var(--electric-blue)">${details.name}</h2>
+                <p style="font-weight: 600; margin: 1rem 0">${details.role}</p>
+                <p style="color: var(--text-dim); margin-bottom: 2rem">${details.bio}</p>
+                <h4 style="margin-bottom: 1rem">Core Expertise:</h4>
+                <ul style="display: flex; gap: 10px; flex-wrap: wrap">
+                    ${details.expertise.map(exp => `<li class="glass-card" style="padding: 5px 15px; font-size: 0.8rem">${exp}</li>`).join('')}
+                </ul>
+            `;
+            modal.style.display = 'block';
+        });
+    });
+
+    closeModal.onclick = () => modal.style.display = 'none';
+    window.onclick = (event) => {
+        if (event.target == modal) modal.style.display = 'none';
+    };
 
     // --- AI Lab: Neural Network Background Animation ---
     let canvas, ctx, particles = [];
