@@ -179,6 +179,39 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.target == modal) modal.style.display = 'none';
     };
 
+    // --- Testimonial Slider Logic ---
+    let currentSlide = 0;
+    const slider = document.querySelector('.testimonial-slider');
+    const items = document.querySelectorAll('.testimonial-item');
+    const dots = document.querySelectorAll('.dot');
+
+    if (slider && items.length > 0) {
+        function showSlide(index) {
+            slider.style.transform = `translateX(-${index * 100}%)`;
+            items.forEach((item, i) => {
+                item.classList.toggle('active', i === index);
+                dots[i].classList.toggle('active', i === index);
+            });
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            let next = (currentSlide + 1) % items.length;
+            showSlide(next);
+        }
+
+        // Auto-slide every 5 seconds
+        let slideInterval = setInterval(nextSlide, 5000);
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                clearInterval(slideInterval);
+                showSlide(i);
+                slideInterval = setInterval(nextSlide, 5000);
+            });
+        });
+    }
+
     // --- AI Lab: Neural Network Background Animation ---
     let canvas, ctx, particles = [];
 
