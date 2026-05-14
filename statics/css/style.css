@@ -99,22 +99,18 @@ ul {
 .mobile-toggle {
     display: none;
     flex-direction: column;
-    justify-content: space-between;
-    width: 30px;
-    height: 21px;
+    gap: 6px;
     background: none;
     border: none;
     cursor: pointer;
-    z-index: 2000;
-    padding: 0;
+    z-index: 1100;
 }
 
 .mobile-toggle .bar {
-    width: 100%;
-    height: 3px;
-    background-color: var(--electric-blue);
-    border-radius: 10px;
-    transition: 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    width: 30px;
+    height: 2px;
+    background-color: #fff;
+    transition: 0.3s;
 }
 
 /* --- SPA Sections --- */
@@ -675,71 +671,28 @@ ul {
     color: var(--bg-dark);
 }
 
-/* --- Testimonials (Slider) --- */
+/* --- Testimonials --- */
 .testimonials-wrapper {
-    margin-top: 5rem;
-    position: relative;
-    z-index: 2;
-}
-
-.testimonial-container {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
+    padding: 80px 0;
+    background: #050505;
 }
 
 .testimonial-slider {
-    display: flex;
-    transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
-}
-
-.testimonial-item {
-    min-width: 100%;
-    padding: 2rem;
-    opacity: 0.3;
-    transition: 0.8s;
-}
-
-.testimonial-item.active {
-    opacity: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .testimonial-item p {
-    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-size: 1.2rem;
     font-style: italic;
     margin-bottom: 2rem;
     color: var(--text-light);
-    line-height: 1.6;
 }
 
 .testimonial-item cite {
     font-weight: 600;
     color: var(--electric-blue);
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-}
-
-.slider-dots {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 1.5rem;
-}
-
-.dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--glass-border);
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.dot.active {
-    background: var(--electric-blue);
-    transform: scale(1.3);
 }
 
 /* --- Scroll Reveal Animations --- */
@@ -779,7 +732,7 @@ ul {
     }
 
     .mobile-toggle.active .bar:nth-child(1) {
-        transform: translateY(9px) rotate(-45deg);
+        transform: rotate(-45deg) translate(-5px, 6px);
     }
 
     .mobile-toggle.active .bar:nth-child(2) {
@@ -787,7 +740,7 @@ ul {
     }
 
     .mobile-toggle.active .bar:nth-child(3) {
-        transform: translateY(-9px) rotate(45deg);
+        transform: rotate(45deg) translate(-5px, -6px);
     }
 
     .team-grid {
