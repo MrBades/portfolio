@@ -179,45 +179,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.target == modal) modal.style.display = 'none';
     };
 
-    // --- Testimonial Slider Logic ---
-    let currentSlide = 0;
-    const slider = document.querySelector('.testimonial-slider');
-    const items = document.querySelectorAll('.testimonial-item');
-    const dots = document.querySelectorAll('.dot');
-
-    if (slider && items.length > 0) {
-        function showSlide(index) {
-            slider.style.transform = `translateX(-${index * 100}%)`;
-            items.forEach((item, i) => {
-                item.classList.toggle('active', i === index);
-                dots[i].classList.toggle('active', i === index);
-            });
-            currentSlide = index;
-        }
-
-        function nextSlide() {
-            let next = (currentSlide + 1) % items.length;
-            showSlide(next);
-        }
-
-        // Auto-slide every 5 seconds
-        let slideInterval = setInterval(nextSlide, 5000);
-
-        dots.forEach((dot, i) => {
-            dot.addEventListener('click', () => {
-                clearInterval(slideInterval);
-                showSlide(i);
-                slideInterval = setInterval(nextSlide, 5000);
-            });
-        });
-    }
-
     // --- AI Lab: Neural Network Background Animation ---
-    let canvas, ctx, particles = [];
+    let canvas, ctx, particles = [], isAnimating = false;
 
     function initNeuralBackground() {
         const container = document.getElementById('neural-bg');
-        if (!container || container.querySelector('canvas')) return;
+        if (!container) return;
+
+        if (container.querySelector('canvas')) {
+            if (!isAnimating) {
+                isAnimating = true;
+                animate();
+            }
+            return;
+        }
 
         canvas = document.createElement('canvas');
         ctx = canvas.getContext('2d');
@@ -247,7 +222,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function animate() {
-        if (!document.getElementById('ailab').classList.contains('active')) return;
+        if (!document.getElementById('ailab').classList.contains('active')) {
+            isAnimating = false;
+            return;
+        }
+        isAnimating = true;
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = '#00f2ff';
