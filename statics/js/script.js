@@ -47,7 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Update URL hash without jumping
-        history.pushState(null, null, `#${targetId}`);
+        if (window.location.hash !== `#${targetId}`) {
+            history.pushState(null, null, `#${targetId}`);
+        }
 
         // Scroll to top
         window.scrollTo(0, 0);
@@ -173,13 +175,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     ${details.expertise.map(exp => `<li class="glass-card" style="padding: 5px 15px; font-size: 0.8rem">${exp}</li>`).join('')}
                 </ul>
             `;
-            modal.style.display = 'block';
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         });
     });
 
-    closeModal.onclick = () => modal.style.display = 'none';
+    closeModal.onclick = () => {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'initial';
+    };
     window.onclick = (event) => {
-        if (event.target == modal) modal.style.display = 'none';
+        if (event.target == modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'initial';
+        }
     };
 
     // --- AI Lab: Neural Network Background Animation ---
