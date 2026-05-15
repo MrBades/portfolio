@@ -95,19 +95,22 @@ document.addEventListener('DOMContentLoaded', () => {
         rootMargin: "0px 0px -50px 0px"
     };
 
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('revealed');
-                revealObserver.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
+    if ('IntersectionObserver' in window) {
+        document.body.classList.add('js-reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
 
-    document.querySelectorAll('.glass-card, .section-title, .hero-content').forEach(el => {
-        el.classList.add('reveal-on-scroll');
-        revealObserver.observe(el);
-    });
+        document.querySelectorAll('.glass-card, .section-title, .hero-content').forEach(el => {
+            el.classList.add('reveal-on-scroll');
+            revealObserver.observe(el);
+        });
+    }
 
     // --- Parallax Effect for Africa Map ---
     window.addEventListener('scroll', () => {
