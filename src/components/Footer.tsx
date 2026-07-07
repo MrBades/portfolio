@@ -1,5 +1,5 @@
 import { Cpu, Mail, Globe, Sparkles, ShieldAlert } from "lucide-react";
-import yeedemLogo from "../assets/images/yeedem_logo_1782645457543.PNG";
+import yeedemLogo from "../assets/images/yeedem_logo_1782645457543.png";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
