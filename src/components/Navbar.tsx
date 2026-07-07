@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Cpu, Menu, X, Globe, ShieldCheck } from "lucide-react";
 import { motion } from "motion/react";
-import yeedemLogo from "/src/assets/images/yeedem_logo_1782645457543.jpg";
+import yeedemLogo from "/src/assets/images/yeedem_logo_1782645457543.PNG";
 
 interface NavbarProps {
   activeSection: string;
