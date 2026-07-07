@@ -1,0 +1,6 @@
+{
+  "name": "Yeedem",
+  "description": "Yeedem is an enterprise-grade technology company specializing in offline-first FinTech ledger infrastructure, RegTech compliance automation, ClimateTech energy asset management, network fleet monitoring, and localized AI parsing models.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
